@@ -16,8 +16,6 @@ public class MemberService {
         this.memoryMemberRepository = memoryMemberRepository;
     }
 
-    private static long sequence = 1L;
-
     public Long join(MemberDto.Join joinDto) throws Exception {
         String name = joinDto.getName();
         String email = joinDto.getEmail();
@@ -28,7 +26,7 @@ public class MemberService {
 
         Member member = memoryMemberRepository.save(
                 new Member(
-                        sequence++,
+                        memoryMemberRepository.nextId(),
                         name,
                         email,
                         gender,

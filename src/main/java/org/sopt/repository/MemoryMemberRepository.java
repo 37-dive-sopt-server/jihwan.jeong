@@ -8,9 +8,38 @@ import java.util.*;
 public class MemoryMemberRepository {
 
     private static final Map<Long, Member> store = new HashMap<>();
+    private final FileMemberRepository fileMemberRepository;
+    private static long sequence = 1L;
+
+    public MemoryMemberRepository(FileMemberRepository fileMemberRepository) {
+        this.fileMemberRepository = fileMemberRepository;
+        loadFile(this.fileMemberRepository);
+        setSequence();
+    }
+
+    public Long nextId() {
+        return sequence;
+    }
+
+    private static void setSequence() {
+        if (!store.isEmpty()) {
+            sequence = store.keySet().stream()
+                    .max(Long::compare)
+                    .orElse(0L) + 1L;
+        }
+    }
+
+    private static void loadFile(FileMemberRepository fileMemberRepository) {
+        List<Member> members = fileMemberRepository.load();
+        for (Member member : members) {
+            store.put(member.getId(), member);
+        }
+    }
 
     public Member save(Member member) {
         store.put(member.getId(), member);
+        fileMemberRepository.save(member);
+        sequence++;
         return member;
     }
 

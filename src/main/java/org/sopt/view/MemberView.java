@@ -54,6 +54,8 @@ public class MemberView {
             case "4" :
                 System.out.print("❌ 회원 삭제 실패: ");
                 break;
+            default:
+                System.out.print("❌ 실패: ");
         }
         System.out.println(e.getMessage());
     }

@@ -3,6 +3,7 @@ package org.sopt;
 import org.sopt.controller.MemberController;
 import org.sopt.domain.Member;
 import org.sopt.dto.MemberDto;
+import org.sopt.repository.FileMemberRepository;
 import org.sopt.repository.MemoryMemberRepository;
 import org.sopt.service.MemberService;
 import org.sopt.validator.MemberInputValidator;
@@ -17,7 +18,9 @@ public class Main {
         MemberInputValidator memberInputValidator = new MemberInputValidator();
         MemberInputView memberInputView = new MemberInputView(memberInputValidator);
         MemberView memberView = new MemberView(memberInputView);
-        MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+
+        FileMemberRepository fileMemberRepository = new FileMemberRepository();
+        MemoryMemberRepository memberRepository = new MemoryMemberRepository(fileMemberRepository);
         MemberService memberService = new MemberService(memberRepository);
         MemberController memberController = new MemberController(memberService);
 
