@@ -13,7 +13,7 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    public Long createMember(MemberDto.Join joinDto) {
+    public Long createMember(MemberDto.Join joinDto) throws Exception {
         return memberService.join(joinDto);
     }
 

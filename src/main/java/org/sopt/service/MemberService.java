@@ -18,11 +18,13 @@ public class MemberService {
 
     private static long sequence = 1L;
 
-    public Long join(MemberDto.Join joinDto) {
+    public Long join(MemberDto.Join joinDto) throws Exception {
         String name = joinDto.getName();
         String email = joinDto.getEmail();
         Gender gender = Gender.fromString(joinDto.getGender());
         String birthdate = joinDto.getBirthdate();
+
+        if(memoryMemberRepository.isExistEmail(email)) throw new Exception("이미 존재하는 이메일입니다.");
 
         Member member = memoryMemberRepository.save(
                 new Member(
@@ -33,6 +35,7 @@ public class MemberService {
                         birthdate
                 )
         );
+
         return member.getId();
     }
 

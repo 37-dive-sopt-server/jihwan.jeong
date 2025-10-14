@@ -1,5 +1,7 @@
 package org.sopt.domain;
 
+import java.time.LocalDate;
+
 public class Member {
     private Long id;
     private String name;
@@ -13,6 +15,7 @@ public class Member {
         this.email = email;
         this.birthdate = birthdate;
         this.gender = gender;
+        isAge20Over(birthdate);
     }
 
     public Long getId() {
@@ -33,5 +36,10 @@ public class Member {
 
     public String getBirthdate() {
         return birthdate;
+    }
+
+    private void isAge20Over(String birthdate) {
+        int age = LocalDate.now().getYear()-Integer.parseInt(birthdate.substring(0,4))+1;
+        if(age<20) throw new IllegalArgumentException("20세 미만의 회원은 가입할 수 없습니다.");
     }
 }
