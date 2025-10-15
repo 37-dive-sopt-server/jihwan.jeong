@@ -12,7 +12,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class FileMemberRepository extends Thread {
 
     private static final File file = new File("members.csv");
-    private static final BlockingQueue<Member> queue = new LinkedBlockingQueue<>();
+    private static final BlockingQueue<Member> addQueue = new LinkedBlockingQueue<>();
+    private static final BlockingQueue<Long> removeQueue = new LinkedBlockingQueue<>();
     private boolean running = true;
 
     public FileMemberRepository() {
@@ -29,8 +30,7 @@ public class FileMemberRepository extends Thread {
     public void run() {
         while (running) {
             try{
-                Member member = queue.take();
-                System.out.println("member = " + member);
+                Member member = addQueue.take();
                 saveToFile(member);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -39,9 +39,15 @@ public class FileMemberRepository extends Thread {
         }
     }
 
+    @Override
+    public void interrupt() {
+        running = false;
+        removeFromQueue();
+        super.interrupt();
+    }
+
     public void save(Member member) {
-        queue.offer(member);
-        System.out.println("member = " + member);
+        addQueue.offer(member);
     }
 
     private synchronized void saveToFile(Member member) {
@@ -57,6 +63,40 @@ public class FileMemberRepository extends Thread {
             );
         } catch (IOException e) {
             throw new RuntimeException("파일에 데이터 저장 실패 " + e.getMessage());
+        }
+    }
+
+    public void remove(Long id) {
+        removeQueue.offer(id);
+    }
+
+    private synchronized void removeFromQueue() {
+        List<String> updatedLines = new ArrayList<>();
+        List<Long> removeIds = new ArrayList<>();
+
+        while (!removeQueue.isEmpty()) {
+            removeIds.add(removeQueue.poll());
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (!removeIds.contains(Long.parseLong(parts[0]))) {
+                    updatedLines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("파일 읽기 실패: " + e.getMessage());
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
+            for (int i = 0; i < updatedLines.size(); i++) {
+                writer.write(updatedLines.get(i));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("파일 쓰기 실패: " + e.getMessage());
         }
     }
 
@@ -79,5 +119,4 @@ public class FileMemberRepository extends Thread {
             throw new RuntimeException("멤버 데이터 파일 로드 실패 " + e.getMessage());
         }
     }
-
 }

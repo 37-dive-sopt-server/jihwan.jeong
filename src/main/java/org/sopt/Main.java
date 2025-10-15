@@ -54,6 +54,7 @@ public class Main {
                     }
                     case "5":
                         memberView.showExit();
+                        fileMemberRepository.interrupt();
                         return;
                 }
             } catch (Exception e) {

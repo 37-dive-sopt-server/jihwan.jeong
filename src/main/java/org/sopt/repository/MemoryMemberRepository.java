@@ -53,6 +53,7 @@ public class MemoryMemberRepository {
 
     public void deleteById(Long id) {
         store.remove(id);
+        fileMemberRepository.remove(id);
     }
 
     public boolean isExistEmail(String email) {
