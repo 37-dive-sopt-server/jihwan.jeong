@@ -60,4 +60,8 @@ public class MemoryMemberRepository {
         return store.values().stream()
                 .anyMatch(m -> m.getEmail().equals(email));
     }
+
+    public boolean isExistId(Long id) {
+        return store.containsKey(id);
+    }
 }

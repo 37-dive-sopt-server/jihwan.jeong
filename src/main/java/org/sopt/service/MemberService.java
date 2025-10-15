@@ -46,6 +46,7 @@ public class MemberService {
     }
 
     public void deleteMember(Long id) {
+        if(!memoryMemberRepository.isExistId(id)) throw new IllegalArgumentException("존재하지 않은 회원 ID입니다.");
         memoryMemberRepository.deleteById(id);
     }
 }

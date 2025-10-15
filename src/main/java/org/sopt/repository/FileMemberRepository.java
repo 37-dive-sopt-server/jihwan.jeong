@@ -22,6 +22,7 @@ public class FileMemberRepository extends Thread {
         } catch (IOException e) {
             throw new RuntimeException("파일 생성 실패: " + e.getMessage());
         }
+        Runtime.getRuntime().addShutdownHook(new Thread(this::interrupt));
         this.setDaemon(true);
         this.start();
     }
