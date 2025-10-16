@@ -3,11 +3,11 @@ package org.sopt.domain;
 import java.time.LocalDate;
 
 public class Member {
-    private Long id;
-    private String name;
-    private String email;
-    private Gender gender;
-    private String birthdate;
+    private final Long id;
+    private final String name;
+    private final String email;
+    private final Gender gender;
+    private final String birthdate;
 
     public Member(Long id, String name, String email, Gender gender, String birthdate) {
         this.id = id;
