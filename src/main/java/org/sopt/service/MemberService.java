@@ -22,7 +22,7 @@ public class MemberService {
         Gender gender = Gender.fromString(joinDto.getGender());
         String birthdate = joinDto.getBirthdate();
 
-        if(memoryMemberRepository.isExistEmail(email)) throw new Exception("이미 존재하는 이메일입니다.");
+        if(memoryMemberRepository.isExistEmail(email)) throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
 
         Member member = memoryMemberRepository.save(
                 new Member(
