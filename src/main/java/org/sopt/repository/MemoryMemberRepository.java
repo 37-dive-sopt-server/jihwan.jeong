@@ -2,7 +2,6 @@ package org.sopt.repository;
 
 import org.sopt.domain.Member;
 
-import java.time.LocalDate;
 import java.util.*;
 
 public class MemoryMemberRepository {

@@ -10,7 +10,8 @@ import org.sopt.validator.MemberInputValidator;
 import org.sopt.view.MemberInputView;
 import org.sopt.view.MemberView;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {

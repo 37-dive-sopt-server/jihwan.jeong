@@ -1,6 +1,5 @@
 package org.sopt.validator;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 
 public class MemberInputValidator {
