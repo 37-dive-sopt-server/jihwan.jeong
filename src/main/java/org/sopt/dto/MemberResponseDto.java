@@ -1,22 +1,31 @@
 package org.sopt.dto;
 
-public class MemberDto {
-
-    public static class Join{
+public class MemberResponseDto {
+    public static class Member{
+        private Long id;
         private String name;
+        private String birthDate;
         private String email;
         private String gender;
-        private String birthdate;
 
-        public Join(String name, String email, String gender, String birthdate) {
+        public Member(Long id, String name, String birthDate, String email, String gender) {
+            this.id = id;
             this.name = name;
+            this.birthDate = birthDate;
             this.email = email;
             this.gender = gender;
-            this.birthdate = birthdate;
+        }
+
+        public Long getId() {
+            return id;
         }
 
         public String getName() {
             return name;
+        }
+
+        public String getBirthDate() {
+            return birthDate;
         }
 
         public String getEmail() {
@@ -26,10 +35,5 @@ public class MemberDto {
         public String getGender() {
             return gender;
         }
-
-        public String getBirthdate() {
-            return birthdate;
-        }
-
     }
 }

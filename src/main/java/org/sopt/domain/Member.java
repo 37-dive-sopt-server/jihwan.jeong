@@ -40,6 +40,6 @@ public class Member {
 
     private void isAge20Over(String birthdate) {
         int age = LocalDate.now().getYear()-Integer.parseInt(birthdate.substring(0,4))+1;
-        if(age<20) throw new IllegalArgumentException("20세 미만의 회원은 가입할 수 없습니다.");
+        if(age<20) throw new IllegalArgumentException("입력값이 올바르지 않습니다.");
     }
 }
