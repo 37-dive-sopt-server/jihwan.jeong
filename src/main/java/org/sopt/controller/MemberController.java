@@ -20,9 +20,7 @@ public class MemberController {
     }
 
     @PostMapping(
-            value = "/members",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            value = "/members"
     )
     public ResponseEntity<?> createMember(
             @RequestBody MemberRequestDto.Join joinDto
