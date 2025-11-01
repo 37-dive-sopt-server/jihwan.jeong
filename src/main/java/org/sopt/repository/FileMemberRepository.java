@@ -2,6 +2,7 @@ package org.sopt.repository;
 
 import org.sopt.domain.Gender;
 import org.sopt.domain.Member;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+@Component
 public class FileMemberRepository extends Thread {
 
     private static final File file = new File("members.csv");

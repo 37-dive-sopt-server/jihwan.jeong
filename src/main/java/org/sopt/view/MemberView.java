@@ -1,7 +1,7 @@
 package org.sopt.view;
 
 import org.sopt.domain.Member;
-import org.sopt.dto.MemberDto;
+import org.sopt.dto.MemberRequestDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +18,13 @@ public class MemberView {
         return memberInputView.inputMain();
     }
 
-    public MemberDto.Join showJoinMember() {
+    public MemberRequestDto.Join showJoinMember() {
         String name = memberInputView.inputName();
         String email = memberInputView.inputEmail();
         String gender = memberInputView.inputGender();
         String birthdate = memberInputView.inputBirthDate();
 
-        return new MemberDto.Join(name, email, gender, birthdate);
+        return new MemberRequestDto.Join(name, email, gender, birthdate);
     }
 
     public Long showFindMemberById() {
