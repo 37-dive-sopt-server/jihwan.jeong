@@ -4,7 +4,7 @@ import org.sopt.domain.Gender;
 import org.sopt.domain.Member;
 import org.sopt.dto.MemberRequestDto;
 import org.sopt.dto.MemberResponseDto;
-import org.sopt.repository.MemoryMemberRepository;
+import org.sopt.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class MemberService {
 
-    private final MemoryMemberRepository memoryMemberRepository;
+    private final MemberRepository memberRepository;
 
-    public MemberService(MemoryMemberRepository memoryMemberRepository) {
-        this.memoryMemberRepository = memoryMemberRepository;
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     public MemberResponseDto.Member join(MemberRequestDto.Join joinDto) throws Exception {
@@ -24,11 +24,10 @@ public class MemberService {
         Gender gender = Gender.fromString(joinDto.getGender());
         String birthdate = joinDto.getBirthdate();
 
-        if(memoryMemberRepository.isExistEmail(email)) throw new IllegalArgumentException("이미 가입된 이메일입니다.");
+        if(memberRepository.existsByEmail(email)) throw new IllegalArgumentException("이미 가입된 이메일입니다.");
 
-        Member member = memoryMemberRepository.save(
+        Member member = memberRepository.save(
                 new Member(
-                        memoryMemberRepository.nextId(),
                         name,
                         email,
                         gender,
@@ -46,7 +45,7 @@ public class MemberService {
     }
 
     public MemberResponseDto.Member findOne(Long memberId) {
-        Member member = memoryMemberRepository.findById(memberId).get();
+        Member member = memberRepository.findById(memberId).get();
         return new MemberResponseDto.Member(
                 member.getId(),
                 member.getName(),
@@ -57,7 +56,7 @@ public class MemberService {
     }
 
     public List<MemberResponseDto.Member> findAllMembers() {
-        return memoryMemberRepository.findAll().stream()
+        return memberRepository.findAll().stream()
                 .map(
                         member -> new MemberResponseDto.Member(
                                 member.getId(),
@@ -71,7 +70,7 @@ public class MemberService {
     }
 
     public void deleteMember(Long id) {
-        if(!memoryMemberRepository.isExistId(id)) throw new IllegalArgumentException("존재하지 않은 회원 ID입니다.");
-        memoryMemberRepository.deleteById(id);
+        if(!memberRepository.existsById(id)) throw new IllegalArgumentException("존재하지 않은 회원 ID입니다.");
+        memberRepository.deleteById(id);
     }
 }
