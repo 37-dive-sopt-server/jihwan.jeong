@@ -26,7 +26,7 @@ public class Article {
     private Member member;
 
     public Article(String tag, LocalDate createdAt, String title, String content, Member member) {
-        this.tag = Tag.valueOf(tag);
+        this.tag = Tag.fromString(tag);
         this.createdAt = createdAt;
         this.title = title;
         this.content = content;
