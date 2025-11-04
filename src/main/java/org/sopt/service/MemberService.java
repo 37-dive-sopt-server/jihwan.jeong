@@ -2,8 +2,8 @@ package org.sopt.service;
 
 import org.sopt.domain.Gender;
 import org.sopt.domain.Member;
-import org.sopt.dto.MemberRequestDto;
-import org.sopt.dto.MemberResponseDto;
+import org.sopt.dto.member.MemberRequestDto;
+import org.sopt.dto.member.MemberResponseDto;
 import org.sopt.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
