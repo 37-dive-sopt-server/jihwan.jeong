@@ -7,7 +7,5 @@ public class ArticleRequestDto {
             String title,
             String content
     ){}
-
-    public record findArticleByUserId(Long userId) {}
     public record findArticleByArticleId(Long articleId) {}
 }
