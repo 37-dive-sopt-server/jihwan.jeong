@@ -1,6 +1,7 @@
 package org.sopt.service;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.sopt.domain.Article;
 import org.sopt.domain.Member;
 import org.sopt.dto.article.ArticleRequestDto;
@@ -14,8 +15,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class ArticleService {
     private final ArticleRepository articleRepository;
     private final MemberRepository memberRepository;

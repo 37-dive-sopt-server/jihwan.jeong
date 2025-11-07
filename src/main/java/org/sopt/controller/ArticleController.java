@@ -1,6 +1,6 @@
 package org.sopt.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.sopt.dto.article.ArticleRequestDto;
 import org.sopt.dto.article.ArticleResponseDto;
 import org.sopt.global.ApiResponse;
@@ -10,8 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/article")
-@AllArgsConstructor
+@RequestMapping("/articles")
+@RequiredArgsConstructor
 public class ArticleController {
     private final ArticleService articleService;
 
