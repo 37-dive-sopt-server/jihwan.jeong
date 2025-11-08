@@ -1,7 +1,7 @@
 package org.sopt.view;
 
 import org.sopt.domain.Member;
-import org.sopt.dto.MemberRequestDto;
+import org.sopt.dto.member.MemberRequestDto;
 
 import java.util.List;
 import java.util.Optional;

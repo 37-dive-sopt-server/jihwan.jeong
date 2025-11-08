@@ -1,6 +1,6 @@
 package org.sopt.controller;
 
-import org.sopt.dto.MemberRequestDto;
+import org.sopt.dto.member.MemberRequestDto;
 import org.sopt.global.ApiResponse;
 import org.sopt.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;

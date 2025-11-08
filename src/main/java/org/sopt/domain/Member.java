@@ -1,21 +1,34 @@
 package org.sopt.domain;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class Member {
-    private final Long id;
-    private final String name;
-    private final String email;
-    private final Gender gender;
-    private final String birthdate;
 
-    public Member(Long id, String name, String email, Gender gender, String birthdate) {
-        this.id = id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String email;
+    private Gender gender;
+    private String birthdate;
+
+    @OneToMany(mappedBy = "member")
+    private List<Article> articles = new ArrayList<>();
+
+    public Member(String name, String email, Gender gender, String birthdate) {
         this.name = name;
         this.email = email;
-        this.birthdate = birthdate;
         this.gender = gender;
-        isAge20Over(birthdate);
+        this.birthdate = birthdate;
+    }
+
+    public Member() {
+
     }
 
     public Long getId() {
@@ -31,7 +44,7 @@ public class Member {
     }
 
     public String getGender() {
-        return gender.getGender();
+        return gender.toString();
     }
 
     public String getBirthdate() {
